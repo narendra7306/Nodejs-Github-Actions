@@ -1,6 +1,6 @@
-FROM node:10 AS build
+FROM node:latest AS build
 
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
@@ -11,13 +11,15 @@ RUN npm install pm2 -g
 COPY . .
 
 # Stage 2: Create a minimal production image
-FROM node:10
+FROM node:latest
 
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 
-COPY . /usr/app
+COPY . /usr/src/app
 
-COPY --from=build /usr/app/package*.json ./
+COPY --from=build /usr/src/app/package*.json ./
+
+RUN npm install
 
 RUN npm install pm2 -g
 
