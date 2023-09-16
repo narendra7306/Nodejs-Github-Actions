@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp-deployment
+  name: node-deploy
   labels:
     app: nodeapp
 spec:
@@ -16,6 +16,8 @@ spec:
     spec:
       containers:
       - name: nodeserver
-        image: thetips4you/nodeapp:latest
+        image: narendra7306/sr-node:17
         ports:
         - containerPort: 3000
+      imagePullSecrets:
+      - name: srcred
